@@ -34,44 +34,47 @@ def group_data(group_id):
     }
     # print(title)
     objectives = soup.select('.objectiveItem')
-    for o_idx, objective in enumerate(objectives):
-        objective_name = _.trim(objective.select_one('.obj-name').get_text())
-        objective_percent = _.trim(objective.select_one('.keep-break').get_text())
-        krs = objective.select('.border-left')
-        objective_json = {
-            "name": _.trim(objective_name),
-            "progress": objective_percent,
-            "krs": []
-        }
-        # print("O%s. %s" % (o_idx+1, _.trim(objective_name)))
-        for kr_idx, kr in enumerate(krs):
-            kr_name = _.trim(kr.select_one('.label-obj').get_text())
-            kr_desc = _.trim(kr.select_one('.display_enter_char').get_text())
-            kr_percent = _.trim(kr.select_one('.keep-break').get_text())
-
-            target = objective.select('.modal')[kr_idx]
-
-            target_unit = target.select_one('.targetunit').attrs['title']
-            target_progress = target.select_one('.keyResultSliderDetailInput').attrs['value']
-
-            if kr_desc:
-                kr_printout = "KR%s. %s\r\n%s"
-                # print(kr_printout % (kr_idx+1, kr_name, kr_desc))
-            else:
-                kr_printout = "KR%s. %s"
-                # print(kr_printout % (kr_idx+1, kr_name))
+    if objectives:
+        for o_idx, objective in enumerate(objectives):
+            objective_name = _.trim(objective.select_one('.obj-name').get_text())
+            objective_percent = _.trim(objective.select_one('.keep-break').get_text())
+            krs = objective.select('.border-left')
             
-            kr_json = {
-                "name": kr_name,
-                "desc": kr_desc,
-                "progress": kr_percent,
-                "target": "%s/%s" % (target_progress, target_unit),
+            objective_json = {
+                "name": _.trim(objective_name),
+                "progress": objective_percent,
+                "krs": []
             }
-            objective_json['krs'].append(kr_json)
-        output['objectives'].append(objective_json)
+            # print("O%s. %s" % (o_idx+1, _.trim(objective_name)))
+            if krs:
+                for kr_idx, kr in enumerate(krs):
+                    kr_name = _.trim(kr.select_one('.label-obj').get_text())
+                    kr_desc = _.trim(kr.select_one('.display_enter_char').get_text())
+                    kr_percent = _.trim(kr.select_one('.keep-break').get_text())
 
-        # print("")
-    # print("======")
+                    target_unit = '-'
+                    target_progress = '-'
+
+                    try:
+                        target = objective.select('.modal')[kr_idx]
+
+                        target_unit = target.select_one('.targetunit').attrs['title']
+                        target_progress = target.select_one('.keyResultSliderDetailInput').attrs['value']
+
+                    except:
+                        pass
+
+                    kr_json = {
+                        "name": kr_name,
+                        "desc": kr_desc,
+                        "progress": kr_percent,
+                        "target": "%s/%s" % (target_progress, target_unit),
+                    }
+                    objective_json['krs'].append(kr_json)
+            output['objectives'].append(objective_json)
+
+            # print("")
+        # print("======")
     return output
 
 # for group in setting.LINKS:
