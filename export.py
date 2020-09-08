@@ -32,7 +32,7 @@ def group_data(group_id):
         "name": title,
         "objectives": []
     }
-    print(title)
+    # print(title)
     objectives = soup.select('.objectiveItem')
     for o_idx, objective in enumerate(objectives):
         objective_name = objective.select_one('.obj-name').get_text()
@@ -41,17 +41,17 @@ def group_data(group_id):
             "name": _.trim(objective_name),
             "krs": []
         }
-        print("O%s. %s" % (o_idx+1, _.trim(objective_name)))
+        # print("O%s. %s" % (o_idx+1, _.trim(objective_name)))
         for kr_idx, kr in enumerate(krs):
             kr_name = _.trim(kr.select_one('.label-obj').get_text())
             kr_desc = _.trim(kr.select_one('.display_enter_char').get_text())
             
             if kr_desc:
                 kr_printout = "KR%s. %s\r\n%s"
-                print(kr_printout % (kr_idx+1, kr_name, kr_desc))
+                # print(kr_printout % (kr_idx+1, kr_name, kr_desc))
             else:
                 kr_printout = "KR%s. %s"
-                print(kr_printout % (kr_idx+1, kr_name))
+                # print(kr_printout % (kr_idx+1, kr_name))
             
             kr_json = {
                 "name": kr_name,
@@ -60,8 +60,8 @@ def group_data(group_id):
             objective_json['krs'].append(kr_json)
         output['objectives'].append(objective_json)
 
-        print("")
-    print("======")
+        # print("")
+    # print("======")
     return output
 
 # for group in setting.LINKS:
