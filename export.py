@@ -27,7 +27,11 @@ def group_data(group_id):
     response = session.get('https://goal.sun-asterisk.vn/groups/%d' % group_id)
     response.encoding = 'utf-8'
     soup = BeautifulSoup(response.content, 'html.parser')
-    title = soup.select_one('.breadcrumb-item.active').string
+    title = '-'
+    try:
+        title = soup.select_one('.breadcrumb-item.active').string
+    except:
+        pass
     output = {
         "name": title,
         "objectives": []
