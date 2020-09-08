@@ -43,11 +43,14 @@ var onRequestSuccess = function (idx, groupId, response) {
 
             var o_tag = $('<td/>');
             if (old_o !== o.name)
-                o_tag.text(o.name);
+                o_tag.text(o.name + "(" + o.progress + ")");
             old_o = o.name
 
             var kr_tag = $('<td/>');
-            kr_tag.text(kr.name);
+            kr_tag.text(kr.name + "(" + kr.progress + ")");
+
+            var kr_target = $('<td/>');
+            kr_target.text(kr.target);
 
             var kr_desc_tag = $('<td class="text-desc"/>');
             kr_desc_tag.text(kr.desc);
@@ -58,7 +61,7 @@ var onRequestSuccess = function (idx, groupId, response) {
             filled_action = true
 
             var tr = $('<tr/>');
-            tr.append(no_tag, link_tag, name_tag, o_tag, kr_tag, kr_desc_tag, action_tag);
+            tr.append(no_tag, link_tag, name_tag, o_tag, kr_tag, kr_target, kr_desc_tag, action_tag);
 
             wrapper.append(tr);
 
@@ -100,6 +103,7 @@ jQuery(document).ready(function () {
     $('#execute').click(function () {
         var links = $('#links').val().split('\n');
         var output = $('#output-body');
+        output.find('tbody').remove();
 
         for (var i = 0; i < links.length; i++) {
             var groupId = getLastPartOfUrl(links[i])
@@ -110,10 +114,11 @@ jQuery(document).ready(function () {
             var name = $('<td/>');
             var o = $('<td/>');
             var kr = $('<td/>');
+            var target = $('<td/>');
             var desc = $('<td class="text-desc"/>');
             var action = $('<td/>');
             action.html(getReloadAction(i + 1, groupId));
-            tr.append(no, link, name, o, kr, desc, action);
+            tr.append(no, link, name, o, kr, target, desc, action);
 
             var wrapper = $('<tbody/>')
             wrapper.attr('id', groupId);
@@ -129,8 +134,7 @@ jQuery(document).ready(function () {
         $("#output-body").table2excel({
             exclude: ".noExl",
             name: "Sheet1",
-            filename: "okr-2020",
-            fileext: ".xls"
+            filename: "okr-2020.xls",
         });
     })
 });

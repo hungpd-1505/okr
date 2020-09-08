@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 
-    <title>Judge Cuộc đua kì thú OKRs Tools</title>
+    <title>OKRs Tools</title>
     <style>
         .text-desc {
             white-space: pre-wrap;
@@ -23,7 +23,8 @@
   <body>
     <div class="container-fluid">
         <h3>Links</h3>
-        <textarea id="links" rows="10" class="form-control"></textarea>
+        <textarea id="links" rows="10" class="form-control" placeholder="https://goal.sun-asterisk.vn/groups/1225
+https://goal.sun-asterisk.vn/groups/1226"></textarea>
         <div class="text-center mt-4">
             <button class="btn btn-primary mr-4" id="execute">Execute</button>
             <button class="btn btn-info" id="export">Download</button>
@@ -38,6 +39,7 @@
                         <th>Name</th>
                         <th>Objective</th>
                         <th>KeyResults</th>
+                        <th>Target</th>
                         <th>Description</th>
                         <th></th>
                     </tr>
@@ -50,7 +52,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="https://www.jqueryscript.net/demo/Export-Html-Table-To-Excel-Spreadsheet-using-jQuery-table2excel/src/jquery.table2excel.js"></script>
+    <script type="text/javascript" src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script type = "text/javascript" 
          src = "{{ url_for('static', filename = 'main.js') }}" ></script>
   </body>

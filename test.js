@@ -1,7 +1,5 @@
 $('.tab-pane.active table.table tbody tr').each(function () {
-    var name = $(this).find('td:eq(1)').text()
-    var group_id = $(this).find('td:eq(3) a').attr('href')
-    console.log(name + " - " + group_id);
+    return $(this).find('td:eq(3) a').attr('href')
 });
 
 /*
