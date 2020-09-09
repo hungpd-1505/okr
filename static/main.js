@@ -43,11 +43,11 @@ var onRequestSuccess = function (idx, groupId, response) {
 
             var o_tag = $('<td/>');
             if (old_o !== o.name)
-                o_tag.text(o.name + "(" + o.progress + ")");
+                o_tag.text(o.name + " (" + o.progress + ")");
             old_o = o.name
 
             var kr_tag = $('<td/>');
-            kr_tag.text(kr.name + "(" + kr.progress + ")");
+            kr_tag.text(kr.name + " (" + kr.progress + ")");
 
             var kr_target = $('<td/>');
             kr_target.text(kr.target);

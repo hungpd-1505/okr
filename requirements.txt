@@ -3,3 +3,4 @@ Flask
 pydash
 requests
 gunicorn
+python-dotenv
