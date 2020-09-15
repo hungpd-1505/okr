@@ -9,23 +9,16 @@ import pydash as _
 import os
 from dotenv import load_dotenv
 
+load_dotenv(override=True)
+
 session = requests.Session()
 
-# $('.tab-pane.active table.table tbody tr').each(function () {
-#     console.log($(this).find('td:eq(3) a').attr('href'))
-# });
-
-def reload_session():
-    load_dotenv()
-    session.cookies.set('access_token', os.getenv('access_token'))
-    session.cookies.set('refresh_token', os.getenv('refresh_token'))
-    session.cookies.set('XSRF-TOKEN', os.getenv('xsrf_token'))
-    session.cookies.set('laravel_session', os.getenv('laravel_session'))
-
+session.cookies.set('access_token', os.getenv('access_token'))
+session.cookies.set('refresh_token', os.getenv('refresh_token'))
+session.cookies.set('XSRF-TOKEN', os.getenv('xsrf_token'))
+session.cookies.set('laravel_session', os.getenv('laravel_session'))
 
 def group_data(group_id):
-    # reload session before crawling data
-    reload_session()
 
     response = session.get('https://goal.sun-asterisk.vn/groups/%d' % group_id)
     response.encoding = 'utf-8'

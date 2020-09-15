@@ -1,3 +1,9 @@
+/* GLOBAL VARS */
+
+var LINKS_TOTAL = 0;
+var FETCHING = 0;
+$('#progress-wrapper').hide();
+
 var getLastPartOfUrl = function ($url) {
     var url = $url;
     var urlsplit = url.split("/");
@@ -9,6 +15,26 @@ var getLastPartOfUrl = function ($url) {
 }
 
 var onRequestSuccess = function (idx, groupId, response) {
+    // update progress bar
+    FETCHING = FETCHING + 1;
+    var progress_width = 0;
+    try {
+        progress_width = FETCHING * 100 / LINKS_TOTAL;
+        if (progress_width >= 100) {
+            progress_width = 100;
+        }
+    } catch (e) { }
+
+    if (progress_width <= 0) {
+        $('#progress-wrapper').hide();
+    } else {
+        $('#progress-wrapper').show();
+        $('#progress-bar').stop().animate({
+            width: progress_width + '%'
+        });
+        $('#progress-bar').text(progress_width.toFixed(0) + '%');
+    }
+
     pic_name = response.name;
     // console.log(name)
     objectives = response.objectives;
@@ -104,6 +130,13 @@ jQuery(document).ready(function () {
         var links = $('#links').val().split('\n');
         var output = $('#output-body');
         output.find('tbody').remove();
+
+        // Reset progress-bar
+        LINKS_TOTAL = links.length;
+        FETCHING = 0;
+
+        $('#progress-bar').width('0%');
+        $('#progress-bar').text('0%');
 
         for (var i = 0; i < links.length; i++) {
             var groupId = getLastPartOfUrl(links[i])
