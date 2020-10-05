@@ -85,3 +85,6 @@ def refresh_token():
     """
     session.get('https://goal.sun-asterisk.vn/groups/1225')
     print('refresh token successfuly!')
+
+
+refresh_token()
