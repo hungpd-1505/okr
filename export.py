@@ -76,3 +76,12 @@ def group_data(group_id):
             # print("")
         # print("======")
     return output
+
+
+def refresh_token():
+    """
+    refresh token
+    execute each 3 hours
+    """
+    session.get('https://goal.sun-asterisk.vn/groups/1225')
+    print('refresh token successfuly!')
